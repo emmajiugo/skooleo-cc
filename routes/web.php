@@ -30,6 +30,7 @@ Route::get('{driver}/callback', 'Auth\LoginController@handleProviderCallback')
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Schools
 Route::get('/schools', 'SchoolController@index')->name('schools');
 Route::get('/schools/{id}/view', 'SchoolController@view')->name('schools.view');
 Route::get('/schools/{id}/withdraws', 'SchoolController@withdraws')->name('schools.withdraws');

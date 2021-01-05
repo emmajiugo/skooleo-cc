@@ -42,7 +42,7 @@
                                                     <div class="card-body">
                                                         <div class="media d-flex">
                                                             <div class="media-body text-left mt-1">
-                                                                <h3 class="font-large-2 white">&#8358;{{ $school['total_amount'] }}</h3>
+                                                                <h3 class="font-large-2 white">&#8358;{{ $school->total_amount }}</h3>
                                                                 <span>.</span>
                                                             </div>
                                                         </div>
@@ -72,7 +72,7 @@
                                         <div class="col-4">
                                             <div class="card pull-up bg-gradient-directional-danger">
                                                 <div class="card-header bg-hexagons-danger">
-                                                    <h4 class="card-title white">Total Successful Withdraws</h4>
+                                                    <h4 class="card-title white">Total Withdrawals</h4>
                                                 </div>
                                                 <div class="card-content show bg-hexagons-primary">
                                                     <div class="card-body">
@@ -96,19 +96,18 @@
 
                                             <table id="transactions" class="display table table-striped" style="width:100%">
                                                 <thead>
-                                                    <th>S/N</th>
                                                     <th>Reference</th>
                                                     <th>Amount</th>
                                                     <th>Bank</th>
                                                     <th>Account Name</th>
                                                     <th>Status</th>
+                                                    <th>Date</th>
                                                     <th></th>
                                                 </thead>
                                                 <tbody>
                                                     @forelse ($withdraws as $withdraw)
                                                     <tr>
-                                                        <td>#</td>
-                                                        <td>{{ $withdraw->reference }}</td>
+                                                        <td>#{{ $withdraw->reference }}</td>
                                                         <td>{{ $withdraw->currency }} {{ $withdraw->amount }}</td>
                                                         <td>{{ $withdraw->bank_name }}</td>
                                                         <td>{{ $withdraw->fullname }}</td>
@@ -121,7 +120,12 @@
                                                             @endphp
                                                             ">{{ $withdraw->status }}</button>
                                                         </td>
-                                                        <td><a href="" class="btn btn-sm btn-secondary">View</a></td>
+                                                        <td>{{ date("d-M-Y", strtotime($withdraw->created_at)) }}</td>
+                                                        <td>
+                                                            @if ($withdraw->status=='PENDING')
+                                                                <a href="" class="btn btn-sm btn-secondary">Verify</a>
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                     @empty
                                                         <div class="alert alert-warning">

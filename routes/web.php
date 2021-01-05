@@ -30,11 +30,22 @@ Route::get('{driver}/callback', 'Auth\LoginController@handleProviderCallback')
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Schools
 Route::get('/schools', 'SchoolController@index')->name('schools');
 Route::get('/schools/{id}/view', 'SchoolController@view')->name('schools.view');
 Route::get('/schools/{id}/withdraws', 'SchoolController@withdraws')->name('schools.withdraws');
+Route::get('/school/{id}/activate', 'SchoolController@activate')->name('school.activate');
 
+// Invoices
+Route::get('/invoices', 'InvoicesController@index')->name('invoices');
 
+// Web settings
+Route::get('/web-settings', 'WebSettingsController@index')->name('web.settings');
+Route::post('/web-settings', 'WebSettingsController@post')->name('web.settings.post');
+
+// Academic session
+Route::get('/academic-session', 'AcademicSessionController@index')->name('academic.session');
+Route::post('/academic-session', 'AcademicSessionController@post')->name('academic.session.post');
 
 // Add allowed users
 Route::get('/add-user', 'AddUserController@index')->name('adduser');

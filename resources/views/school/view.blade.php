@@ -42,7 +42,7 @@
                                                     <div class="card-body">
                                                         <div class="media d-flex">
                                                             <div class="media-body text-left mt-1">
-                                                                <h3 class="font-large-2 white">&#8358; {{ $school['total_amount']  }}</h3>
+                                                                <h3 class="font-large-2 white">&#8358; {{ $school->total_amount  }}</h3>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -91,47 +91,51 @@
                                         </div>
                                         <div class="col-6 space-20">
                                             <h4><u>School Name</u></h4>
-                                            <p>{{ $school['schoolname'] }}</p>
+                                            <p>{{ $school->schoolname }}</p>
                                         </div>
                                         <div class="col-6 space-20">
                                             <h4><u>Status</u></h4>
-                                            {!! ($school['verifystatus']==1) ? '<button class="btn btn-success btn-sm">Active</button>' : '<button class="btn btn-danger btn-sm">Not Active</button>'  !!} {!! ($school['verifystatus']==0) ? '<a href="#" class="btn btn-secondary btn-sm">Activate Account</a>' : '' !!}
+                                            {!! ($school->verifystatus==1) ? '<button class="btn btn-success btn-sm">Active</button>' : '<button class="btn btn-danger btn-sm">Not Active</button>'  !!}
+
+                                            @if ($school->verifystatus==0)
+                                                <a href="{{ route('school.activate', $school->id) }}" class="btn btn-secondary btn-sm">Activate Account</a>
+                                            @endif
                                         </div>
                                         <div class="col-6 space-20">
                                             <h4><u>School Email</u></h4>
-                                            <p>{{ $school['schoolemail'] }}</p>
+                                            <p>{{ $school->schoolemail }}</p>
                                         </div>
                                         <div class="col-6 space-20">
                                             <h4><u>School Contact</u></h4>
-                                            <p>{{ $school['schoolphone'] }}</p>
+                                            <p>{{ $school->schoolphone }}</p>
                                         </div>
                                         <div class="col-12 space-20">
                                             <h4><u>School Address</u></h4>
-                                            <p>{{ $school['schooladdress'] }}</p>
+                                            <p>{{ $school->schooladdress }}</p>
 
                                             <br><hr>
                                         </div>
                                         <div class="col-6 space-20">
                                             <h4><u>Registered By</u></h4>
-                                            <p>{{ $school['registeredby'] }}</p>
+                                            <p>{{ $school->registeredby }}</p>
                                         </div>
                                         <div class="col-6 space-20">
                                             <h4><u>Registrar Status</u></h4>
-                                            <p>{{ $school['registrarstatus'] }}</p>
+                                            <p>{{ $school->registrarstatus }}</p>
                                         </div>
 
                                         <div class="col-6 space-20">
                                             <h4><u>Corporate Account Name</u></h4>
-                                            <p>{{ $school['corporate_acctname'] }}</p>
+                                            <p>{{ $school->corporate_acctname }}</p>
                                         </div>
                                         <div class="col-6 space-20">
                                             <h4><u>Corporate Account Number</u></h4>
-                                            <p>{{ $school['corporate_acctno'] }} [{{ $school['bankname'] }}]</p>
+                                            <p>{{ $school->corporate_acctno }} [{{ $school->bankname }}]</p>
                                         </div>
                                         <div class="col-12 space-20">
                                             <hr><br>
                                             <h4><u>Government Approved Document(s)</u></h4>
-                                            <p><a href="{{ $school['govt_doc'] }}" target="_blank" class="btn btn-sm btn-secondary">View Docs</a></p>
+                                            <p><a href="{{ $school->govt_doc }}" target="_blank" class="btn btn-sm btn-secondary">View Docs</a></p>
                                         </div>
                                         <div class="col-12 space-60"></div>
                                     </div>

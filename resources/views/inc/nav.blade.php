@@ -41,20 +41,26 @@
                     <span class="menu-title" data-i18n="">Invoices</span>
                 </a>
                 <ul class="menu-content">
-                    <li class="{{-- Request::is('settlement/payout')?'active':'' --}}">
-                        <a class="menu-item" href="{{-- route('payout') --}}">View</a>
-                    </li>
-                    <li class="{{-- Request::is('callback/uk-account-payout')?'active':'' --}}">
-                        <a class="menu-item" href="{{-- route('callback',['method'=>'uk-account-payout']) --}}">Paid Not Settled</a>
+                    <li class="{{ Request::is('invoices')?'active':'' }}">
+                        <a class="menu-item" href="{{ route('invoices') }}">View</a>
                     </li>
                 </ul>
             </li>
 
             {{-- @can('view balances') --}}
-                <li class="{{-- Request::is('view-balance')?'active':'' --}}">
-                    <a href="{{-- route('view.balance') --}}">
+                <li class="{{ Request::is('academic-session')?'active':'' }}">
+                    <a href="{{ route('academic.session') }}">
                         <i class="la la-certificate"></i>
                         <span class="menu-title" data-i18n="">Academic Session</span>
+                    </a>
+                </li>
+            {{-- @endcan --}}
+
+            {{-- @can('view balances') --}}
+                <li class="{{ Request::is('web-settings')?'active':'' }}">
+                    <a href="{{ route('web.settings') }}">
+                        <i class="la la-cog"></i>
+                        <span class="menu-title" data-i18n="">Web Settings</span>
                     </a>
                 </li>
             {{-- @endcan --}}
@@ -64,15 +70,6 @@
                     <a href="{{-- route('view.balance') --}}">
                         <i class="la la-bank"></i>
                         <span class="menu-title" data-i18n="">Gateway Balance</span>
-                    </a>
-                </li>
-            {{-- @endcan --}}
-
-            {{-- @can('view balances') --}}
-                <li class="{{-- Request::is('view-balance')?'active':'' --}}">
-                    <a href="{{-- route('view.balance') --}}">
-                        <i class="la la-cog"></i>
-                        <span class="menu-title" data-i18n="">Web Settings</span>
                     </a>
                 </li>
             {{-- @endcan --}}
@@ -115,6 +112,15 @@
                     <a href="{{ route('audit') }}">
                         <i class="la la-newspaper-o"></i>
                         <span class="menu-title" data-i18n="">Audit Logs</span>
+                    </a>
+                </li>
+            {{-- @endcan --}}
+
+            {{-- @can('view audit logs') --}}
+                <li class="nav-item {{ Request::is('audit-logs') ? 'active' : '' }}">
+                    <a href="{{ route('audit') }}">
+                        <i class="la la-chain"></i>
+                        <span class="menu-title" data-i18n="">Cron Jobs</span>
                     </a>
                 </li>
             {{-- @endcan --}}

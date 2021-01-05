@@ -28,12 +28,13 @@ class SchoolController extends Controller
     {
         // get school details
         $school = $this->getSchoolDetails($id);
+        // return $school->school_number;
 
         $invoices = $this->getInvoicesStats($id);
 
         return view('school.view', [
-            'school' => json_decode($school, true)[0],
-            'invoices' => json_decode(json_encode($invoices), true)[0]
+            'school' => $school,
+            'invoices' => $invoices
         ]);
     }
 
@@ -48,7 +49,7 @@ class SchoolController extends Controller
         $successfulWithdrawFee = $withdraws->where('status', 'SUCCESSFUL')->sum('skooleo_fee');
 
         return view('school.withdraws', [
-            'school' => json_decode($school, true)[0],
+            'school' => $school,
             'withdraws' => $withdraws,
             'totalPaidInvoice' => $successfulInvoice,
             'totalSuccessWithdraws' => $successfulWithdraws,
@@ -56,20 +57,24 @@ class SchoolController extends Controller
         ]);
     }
 
-    public function getInvoicesStats($id)
-    {
-        return DB::select("SELECT DISTINCT
-                    (SELECT COUNT(`status`) FROM invoices WHERE `status`='PAID' AND school_detail_id=$id) AS paid,
-                    (SELECT COUNT(`status`) FROM invoices WHERE `status`='UNPAID' AND school_detail_id=$id) AS unpaid
-                    FROM invoices");
-    }
-
     public function getSchoolDetails($id)
     {
         return DB::table('school_details')
         ->join('wallets', 'school_details.id', '=', 'wallets.school_detail_id')
         ->select('school_details.*', 'wallets.total_amount')
-        ->where('school_details.id', $id)->get();
+        ->where('school_details.id', $id)->first();
+    }
+
+    public function getInvoicesStats($id)
+    {
+        $invoices = DB::select("SELECT DISTINCT
+                    (SELECT COUNT(`status`) FROM invoices WHERE `status`='PAID' AND school_detail_id=$id) AS paid,
+                    (SELECT COUNT(`status`) FROM invoices WHERE `status`='UNPAID' AND school_detail_id=$id) AS unpaid
+                    FROM invoices");
+
+        if (count($invoices)) return json_decode(json_encode($invoices), true)[0];
+
+        return ['paid' => 0, 'unpaid' => 0];
     }
 
     public function getTotalPaidInvoice($id)
@@ -79,4 +84,15 @@ class SchoolController extends Controller
                     ->where('status', 'PAID')
                     ->where('school_detail_id', $id)->sum('amount');
     }
+
+    public function activate($id)
+    {
+        $activated = DB::table('school_details')->where('id', $id)
+            ->update([
+                'verifystatus' => 1
+            ]);
+
+        return redirect(route('schools.view', $id));
+    }
+
 }

@@ -107,6 +107,7 @@
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
     <!-- BEGIN: Vendor JS-->
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app-assets/vendors/js/forms/toggle/switchery.min.js') }}" type="text/javascript"></script>
@@ -126,13 +127,8 @@
     <script src="{{ asset('app-assets/vendors/js/jquery.sharrre.js') }}" type="text/javascript"></script>
     <!-- END: Theme JS-->
 
-    <!-- LAZY LOADING JS -->
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script>
-    <!-- END LAZY LOADING JS -->
-
     {{-- DataTables --}}
-    @if (Request::is('schools') || Request::is('schools/*') )
+    @if (Request::is('schools') || Request::is('schools/*') || Request::is('invoices') )
         <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>

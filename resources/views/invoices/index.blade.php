@@ -7,7 +7,7 @@
             <div class="content-wrapper-before"></div>
             <div class="content-header row">
                 <div class="content-header-left col-md-4 col-12 mb-2">
-                    <h3 class="content-header-title">Search</h3>
+                    <h3 class="content-header-title">Invoices</h3>
                 </div>
                 <div class="content-header-right col-md-8 col-12">
                     <div class="breadcrumbs-top float-md-right">
@@ -17,7 +17,7 @@
                                     <a href="{{ route('home') }}">Home</a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                    View
+                                    Invoices
                                 </li>
                             </ol>
                         </div>
@@ -30,7 +30,7 @@
                     <div class="col-12">
                         <div class="card" style="min-height:400px">
                             <div class="card-header">
-                                <h4 class="card-title">View Schools</h4>
+                                <h4 class="card-title">Invoices</h4>
                                 <a class="heading-elements-toggle">
                                     <i class="la la-ellipsis-v font-medium-3"></i>
                                 </a>
@@ -40,25 +40,36 @@
                                     <table id="transactions" class="display table table-striped" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th><b>S/N</b></th>
-                                                <th><b>School Number</b></th>
-                                                <th><b>School Name</b></th>
+                                                <th><b>Invoice Reference</b></th>
+                                                <th><b>Student Name</b></th>
+                                                <th><b>Section</b></th>
+                                                <th><b>Class</b></th>
+                                                <th><b>Term</b></th>
+                                                <th><b>Session</b></th>
+                                                <th><b>Total Paid</b></th>
                                                 <th><b>Status</b></th>
+                                                <th><b>Date</b></th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody id="transaction-body">
-                                            @foreach ($schools as $school)
+                                            @foreach ($invoices as $invoice)
                                             <tr>
-                                                <td>#</td>
-                                                <td>{{ $school->school_number }}</td>
-                                                <td>{{ $school->schoolname }}</td>
+                                                <td>#{{ $invoice->invoice_reference }}</td>
+                                                <td>{{ $invoice->studentname }}</td>
+                                                <td>{{ $invoice->section }}</td>
+                                                <td>{{ $invoice->class }}</td>
+                                                <td>{{ $invoice->term }}</td>
+                                                <td>{{ $invoice->session }}</td>
+                                                <td>{{ ($invoice->amount + $invoice->skooleo_fee) }}</td>
                                                 <td>
-                                                    {!! ($school->verifystatus==1) ? '<button class="btn btn-success btn-sm">Active</button>' : '<button class="btn btn-danger btn-sm">Not Active</button>'  !!}
+                                                    {!! ($invoice->status=='PAID') ? '<button class="btn btn-success btn-sm">PAID</button>' : '<button class="btn btn-danger btn-sm">UNPAID</button>'  !!}
                                                 </td>
+                                                <td>{{ date("d-M-Y", strtotime($invoice->created_at)) }}</td>
                                                 <td>
-                                                    <a href="{{ route('schools.view', $school->id) }}" class="btn btn-primary btn-sm">View</a>
-                                                    <a href="{{  route('schools.withdraws', $school->id)  }}" class="btn btn-secondary btn-sm">Withdraws</a>
+                                                    @if ($invoice->status=='UNPAID')
+                                                        <a href="" class="btn btn-sm btn-secondary">Verify</a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                             @endforeach

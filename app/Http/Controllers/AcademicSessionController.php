@@ -15,7 +15,7 @@ class AcademicSessionController extends Controller
 
     public function index()
     {
-        $sessions = DB::table('sessions')->orderBy('created_at', 'asc')->get();
+        $sessions = DB::table('sessions')->orderBy('created_at', 'desc')->get();
 
         return view('academic-session', [
             'sessions' => $sessions
@@ -25,7 +25,7 @@ class AcademicSessionController extends Controller
     public function post(Request $request)
     {
         $session = DB::table('sessions')->insert(
-            ['sessionname' => $request->session]
+            ['sessionname' => $request->session, 'created_at' => NOW(), 'updated_at' => NOW()]
         );
 
         if ($session) return redirect(route('academic.session'))->with('message', 'Added successfully.');

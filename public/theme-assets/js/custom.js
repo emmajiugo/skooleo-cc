@@ -6,13 +6,14 @@ $(function () {
         buttons: [
             'csv', 'excel'
         ],
-        autoWidth: false,
+        autoWidth: true,
         columnDefs: [
             {
                 targets: ['_all'],
                 className: 'mdc-data-table__cell'
             },
         ],
+        "order": false,
         "pageLength": 50
     });
 });

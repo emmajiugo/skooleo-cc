@@ -95,4 +95,14 @@ class SchoolController extends Controller
         return redirect(route('schools.view', $id));
     }
 
+    public function disable($id)
+    {
+        $activated = DB::table('school_details')->where('id', $id)
+            ->update([
+                'verifystatus' => 0
+            ]);
+
+        return redirect(route('schools.view', $id));
+    }
+
 }

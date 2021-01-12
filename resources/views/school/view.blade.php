@@ -99,6 +99,8 @@
 
                                             @if ($school->verifystatus==0)
                                                 <a href="{{ route('school.activate', $school->id) }}" class="btn btn-secondary btn-sm">Activate Account</a>
+                                            @else
+                                                <a href="{{ route('school.disable', $school->id) }}" class="btn btn-secondary btn-sm">Disable Account</a>
                                             @endif
                                         </div>
                                         <div class="col-6 space-20">

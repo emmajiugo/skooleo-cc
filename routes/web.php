@@ -35,6 +35,7 @@ Route::get('/schools', 'SchoolController@index')->name('schools');
 Route::get('/schools/{id}/view', 'SchoolController@view')->name('schools.view');
 Route::get('/schools/{id}/withdraws', 'SchoolController@withdraws')->name('schools.withdraws');
 Route::get('/school/{id}/activate', 'SchoolController@activate')->name('school.activate');
+Route::get('/school/{id}/disable', 'SchoolController@disable')->name('school.disable');
 
 // Invoices
 Route::get('/invoices', 'InvoicesController@index')->name('invoices');
